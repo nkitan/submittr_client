@@ -12,7 +12,7 @@ import InputBase from '@material-ui/core/InputBase';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
-      search: {
+      searchBar: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: alpha(theme.palette.primary.main, 0.15),
@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) =>
           backgroundColor: alpha(theme.palette.primary.main, 0.25),
         },
         marginLeft: 0,
+        float: 'right',
         width: '100%',
         [theme.breakpoints.up('sm')]: {
           marginLeft: theme.spacing(1),
@@ -58,11 +59,11 @@ const useStyles = makeStyles((theme) =>
 
 export default function Search(){
     const classes = useStyles();
-
     return (
-    <div className={classes.search}>
+    <div style={{ flexGrow: "1" }}>
+    <div className={classes.searchBar} >
         <div className={classes.searchIcon}>
-            <SearchIcon />
+            <SearchIcon fontSize="small" />
         </div>
         <InputBase
         placeholder="Search..."
@@ -73,6 +74,7 @@ export default function Search(){
         
         inputProps={{ 'aria-label': 'search ' }}
         />
+    </div>
     </div>
     )
 }

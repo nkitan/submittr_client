@@ -10,11 +10,11 @@ import Search from './Search'
   
 export default function SearchAppBar() {
     return (
-    <Box flex>
-    <AppBar position="static" color="secondary">
-        <ToolBar flex>
+    <Box sx={{mx: 1, mt: 1, px: 1}} flexGrow="1">
+    <AppBar position="static" color="secondary" style={{opacity: 0.9}}>
+        <ToolBar>
             <IconButton onClick={() => {}} 
-            size="large"
+            size="small"
             edge="start"
             color="inherit"
             aria-label="open drawer"
@@ -22,7 +22,7 @@ export default function SearchAppBar() {
                 <MenuIcon />
             </IconButton>
             <Typography
-                variant="h6"
+                variant="h10"
                 noWrap
                 component="div"
                 sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}

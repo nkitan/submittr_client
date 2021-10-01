@@ -8,8 +8,10 @@ import './css/App.css';
 
 function App() {
   return (
-    <div className="App"> 
+    <div class="App"> 
+    <div class="Header">
       <SearchAppBar />
+    </div>
       <Assignments />
       <Footer position="relative"/>
     </div>
