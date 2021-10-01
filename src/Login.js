@@ -6,9 +6,12 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Card from '@material-ui/core/Card'
 import { authenticatr_host } from './Config';
+import { requestUplink } from './Uplink';
 
 import { useState } from 'react';
 import './css/Login.css'
+import { Route } from 'react-router-dom/cjs/react-router-dom.min';
+import Home from './Home';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,8 +21,36 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0.9,
     alignItems: 'center',
     borderRadius: theme.spacing(1),
+    maxWidth: 500,
+    maxHeight:300,
+    position: 'relative',
+    margin: 'auto',
+  },
+
+  Login: {
+    paddingBottom: '100%',
+    alignContent: 'center',
+    alignText: 'center',
+    backgroundColor: theme.palette.secondary.light,
+    backgroundSize: 'inherit',
+    size: 'inherit',
   }
 }));
+
+function handleSubmit(event) {
+  requestUplink(authenticatr_host + '/verify', {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OGZhODM5LTZkZTQtNDEwNS04NDZhLTU3MDNhMTM0MjYyMyIsImlhdCI6MTYzMzEwOTUwMSwiZXhwIjoxNjMzMTExMzAxfQ.rixXolWLFGAWD3LoKhTaxmdaqYwYdDC_fc0m3Up57L4"
+  }).then(response => {
+    response = JSON.parse(JSON.stringify(response))
+    
+    if(response.valid === true){
+      console.log(response.valid);
+      <Route path={Home} />
+    }
+  })
+
+  event.preventDefault();
+}
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -30,21 +61,14 @@ export default function Login() {
       return username.length > 0 && password.length > 0;
     }
 
-    function handleSubmit(event) {
-        alert('Username: ' + username + '\nPassword: ' + password)  
-        fetch(authenticatr_host).then(res => res.text()).then(res => console.log(res))
-        event.preventDefault();
-    }
-
-
       return (
-          <div class="Login">
+          <div className={classes.Login}>
             <Typography variant="h5">Log into Submittr</Typography>
               <form onSubmit={handleSubmit}>
                 <Card className={classes.inputWrapper}>
                   <CardContent>
                     <Input size="lg"
-                      controlId="username"
+                      controlid="username"
                       autoFocus
                       type="username"
                       placeholder="username"
@@ -54,7 +78,7 @@ export default function Login() {
                   </CardContent>
                   <CardContent>
                     <Input size="lg" 
-                        controlId="password"
+                        controlid="password"
                         type="password"
                         placeholder="password"
                         value={password}
