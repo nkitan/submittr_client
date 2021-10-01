@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Card from '@material-ui/core/Card'
+import { authenticatr_host } from './Config';
 
 import { useState } from 'react';
 import './css/Login.css'
@@ -30,7 +31,8 @@ export default function Login() {
     }
 
     function handleSubmit(event) {
-        alert('Username: ' + username + '\nPassword: ' + password)        
+        alert('Username: ' + username + '\nPassword: ' + password)  
+        fetch(authenticatr_host).then(res => res.text()).then(res => console.log(res))
         event.preventDefault();
     }
 
@@ -59,7 +61,6 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)} 
                     />
                 </CardContent>
-
                 <CardActions>
                   <Button variant="contained" size="medium" type="submit" color="secondary" disabled={!validateForm()}>
                     Login
