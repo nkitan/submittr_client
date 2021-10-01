@@ -1,20 +1,24 @@
-import Assignments from './Assignments'
-import Footer from './Footer'
-import SearchAppBar from './SearchAppBar'
+import React from 'react'
 
-import React from 'react';
-import './css/App.css';
+import Home from './Home'
+import Login from './Login'
+import './css/App.css'
+
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 
 
 function App() {
   return (
-    <div class="App"> 
-    <div class="Header">
-      <SearchAppBar />
-    </div>
-      <Assignments />
-      <Footer position="relative"/>
-    </div>
+    <Router>
+      <Switch>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route path="/">
+            <Login />
+          </Route>
+      </Switch>
+    </Router>
   );
 }
 
