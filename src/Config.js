@@ -1,3 +1,4 @@
-const authenticatr_host = "http://localhost:6969/auth"
+const submittr_host = "http://localhost"
+const authenticatr_port = ":6969"
 
-export { authenticatr_host }
+export { submittr_host, authenticatr_port }

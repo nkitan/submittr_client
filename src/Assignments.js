@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 
 export default function Assignments() {
     return (
-        <div class='assignments'>
+        <div className='assignments'>
             <Button onClick={()=>alert('hello')} color="secondary" type="contained">
                 Refresh
             </Button>

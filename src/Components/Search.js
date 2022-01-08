@@ -2,7 +2,6 @@ import React from 'react'
 
 import {
     createStyles,
-    Theme,
     makeStyles,
     alpha,
   } from '@material-ui/core/styles';

@@ -1,16 +1,19 @@
+import React from 'react';
+
 import Assignments from './Assignments'
 import Footer from './Components/Footer'
-
 import SearchAppBar from './Components/SearchAppBar'
 
-export default function Home() {
+export default class Home extends React.Component {
+  render() {
     return (
-    <div class="App">
-        <div class="Header">
-            <SearchAppBar />
-        </div>
-        <Assignments />
-        <Footer position="relative"/>
-    </div>
-    )
+      <div className="App">
+          <div className="Header">
+              <SearchAppBar id={'this.state.id'}/>
+          </div>
+          <Assignments />
+          <Footer position="relative"/>
+      </div>
+      );
+  }
 }

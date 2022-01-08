@@ -17,8 +17,32 @@ function App() {
           <Route path="/">
             <Login />
           </Route>
+          <Route path="/failedlogin">
+            <FailedLogin />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
       </Switch>
     </Router>
+  );
+}
+
+function NotFound () {
+    return (
+    <div>
+      <h1 style={{margin: 'auto', fontSize: 74, fontFamily: 'sans-serif'}}>Not found!</h1>
+      <p>Sorry your page was not found!</p>
+    </div>
+  );
+}
+
+function FailedLogin () {
+  return (
+  <div>
+      <h1 style={{margin: 'auto', fontSize: 74, fontFamily: 'sans-serif'}}>Invalid User!</h1>
+      <p>check your credential</p>
+  </div>
   );
 }
 
