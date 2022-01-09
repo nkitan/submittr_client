@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Card from '@material-ui/core/Card'
 import { submittr_host, authenticatr_port } from './Config';
-import { call, refreshToken} from './Uplink';
+import { call } from './Uplink';
 
 import { useState } from 'react';
 import './css/Login.css'
@@ -46,64 +46,67 @@ export default function Login() {
       return username.length > 0 && password.length > 0;
     }
 
+    function verifyUser(){
+      call(submittr_host + authenticatr_port + '/auth/verify', 'GET', { 'Content-Type': 'application/json'}, "")
+      .then(response => {
+        response = JSON.parse(JSON.stringify(response))
+        if(response.valid === true){
+          history.push({
+            pathname: '/home',
+            state: {id: response.id, isAdmin: response.isAdmin, isTeacher: response.isTeacher},
+          })  
+        } 
+      }).catch(error => {
+        // Route to login with invalid credentials warning
+        // TODO get failed login to work
+        history.push({
+          pathname: '/failedlogin',
+          state: {},
+        })
+      })
+    }
+
     function handleSubmit(event) {
       call(submittr_host + authenticatr_port + '/auth/login', 'POST', { 'Content-Type': 'application/json' }, { "username" : username , "password" : password})
       .then(response => { 
-        call(submittr_host + authenticatr_port + '/auth/verify', 'GET', { 'Content-Type': 'application/json'}, "")
-        .then(response => {
-          response = JSON.parse(JSON.stringify(response))
-          if(response.valid === true){
-            history.push({
-              pathname: '/home',
-              state: {id: response.id, isAdmin: response.isAdmin, isTeacher: response.isTeacher},
-            })  
-          } 
-        }).catch(error => {
-          // Route to login with invalid credentials warning
-          // TODO get failed login to work
-          history.push({
-            pathname: '/failedlogin',
-            state: {},
-          })
-        })
+        verifyUser()
       }).catch(error => {
         console.log(error)
       })
-
       event.preventDefault();
     }
-    
-      return (
-          <div className={classes.Login}>
-            <Typography align='center' variant="h5">Log into Submittr</Typography>
-              <form onSubmit={handleSubmit}>
-                <Card className={classes.inputWrapper}>
-                  <CardContent>
-                    <Input size="lg"
-                      controlid="username"
-                      autoFocus
-                      type="username"
-                      placeholder="username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
-                  </CardContent>
-                  <CardContent>
-                    <Input size="lg" 
-                        controlid="password"
-                        type="password"
-                        placeholder="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} 
-                    />
+
+    return (
+        <div className={classes.Login}>
+          <Typography align='center' variant="h5">Log into Submittr</Typography>
+            <form onSubmit={handleSubmit}>
+              <Card className={classes.inputWrapper}>
+                <CardContent>
+                  <Input size="lg"
+                    controlid="username"
+                    autoFocus
+                    type="username"
+                    placeholder="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </CardContent>
-                <CardActions>
-                  <Button variant="contained" size="medium" type="submit" color="secondary" disabled={!validateForm()}>
-                    Login
-                  </Button>
-                </CardActions>
-                </Card>
-              </form>  
-          </div>
-      )
+                <CardContent>
+                  <Input size="lg" 
+                      controlid="password"
+                      type="password"
+                      placeholder="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)} 
+                  />
+              </CardContent>
+              <CardActions>
+                <Button variant="contained" size="medium" type="submit" color="secondary" disabled={!validateForm()}>
+                  Login
+                </Button>
+              </CardActions>
+              </Card>
+            </form>  
+        </div>
+    )
 }

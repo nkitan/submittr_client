@@ -6,7 +6,6 @@ import './css/App.css'
 
 import { Route, Switch, BrowserRouter} from 'react-router-dom'
 
-
 function App() {
   return (
     <BrowserRouter>
