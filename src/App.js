@@ -1,9 +1,8 @@
 import React from 'react'
-
 import Home from './Home'
 import Login from './Login'
+import CheckCookie from './CheckCookie'
 import './css/App.css'
-
 import { Route, Switch, BrowserRouter} from 'react-router-dom'
 
 function App() {
@@ -18,6 +17,9 @@ function App() {
           </Route>
           <Route path="/failedlogin">
             <FailedLogin />
+          </Route>
+          <Route path="/">
+            <CheckCookie />
           </Route>
           <Route path="*">
             <NotFound />
