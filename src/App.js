@@ -4,17 +4,17 @@ import Home from './Home'
 import Login from './Login'
 import './css/App.css'
 
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter} from 'react-router-dom'
 
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
           <Route path="/home">
             <Home />
           </Route>
-          <Route path="/">
+          <Route path="/login">
             <Login />
           </Route>
           <Route path="/failedlogin">
@@ -24,7 +24,7 @@ function App() {
             <NotFound />
           </Route>
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
 
@@ -41,7 +41,7 @@ function FailedLogin () {
   return (
   <div>
       <h1 style={{margin: 'auto', fontSize: 74, fontFamily: 'sans-serif'}}>Invalid User!</h1>
-      <p>check your credential</p>
+      <p>check credentials</p>
   </div>
   );
 }

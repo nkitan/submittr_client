@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Card from '@material-ui/core/Card'
 import { submittr_host, authenticatr_port } from './Config';
-import { requestUplink, refreshJWT, verify } from './Uplink';
+import { call, refreshToken} from './Uplink';
 
 import { useState } from 'react';
 import './css/Login.css'
@@ -40,8 +40,6 @@ export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
-    let token = "";
-
     const classes = useStyles();
 
     function validateForm() {
@@ -49,24 +47,18 @@ export default function Login() {
     }
 
     function handleSubmit(event) {
-      requestUplink(submittr_host + authenticatr_port + '/auth/login', 'POST', { 'Content-Type': 'application/json' }, { "username" : username , "password" : password})
+      call(submittr_host + authenticatr_port + '/auth/login', 'POST', { 'Content-Type': 'application/json' }, { "username" : username , "password" : password})
       .then(response => { 
-        token = JSON.parse(JSON.stringify(response)).token;
-        verify(token).then(res => {
-          // Route to home, store isAdmin, isTeacher, userid etc
-          // TODO pass isAdmin, isTeacher props
-          history.push({
-            pathname: '/home',
-            state: res,
-          })  
-          
-
-          // TODO get res!
-          console.log(res)
+        call(submittr_host + authenticatr_port + '/auth/verify', 'GET', { 'Content-Type': 'application/json'}, "")
+        .then(response => {
+          response = JSON.parse(JSON.stringify(response))
+          if(response.valid === true){
+            history.push({
+              pathname: '/home',
+              state: {id: response.id, isAdmin: response.isAdmin, isTeacher: response.isTeacher},
+            })  
+          } 
         }).catch(error => {
-          throw new Error('verification failed!')
-        })
-      }).catch(error => {
           // Route to login with invalid credentials warning
           // TODO get failed login to work
           history.push({
@@ -74,10 +66,13 @@ export default function Login() {
             state: {},
           })
         })
-    
+      }).catch(error => {
+        console.log(error)
+      })
+
       event.preventDefault();
     }
-
+    
       return (
           <div className={classes.Login}>
             <Typography align='center' variant="h5">Log into Submittr</Typography>
@@ -108,7 +103,7 @@ export default function Login() {
                   </Button>
                 </CardActions>
                 </Card>
-              </form>
+              </form>  
           </div>
       )
 }

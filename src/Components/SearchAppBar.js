@@ -14,19 +14,19 @@ export default class SearchAppBar extends React.Component {
     <AppBar position="static" color="secondary" style={{opacity: 0.9}}>
           <ToolBar>
               <IconButton onClick={() => {}} 
-              size="small"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}>
-                  <MenuIcon />
+                size="small"
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                sx={{ mr: 2 }}>
+                <MenuIcon />
               </IconButton>
               <Typography
-                  variant="h6"
-                  noWrap
-                  component="div"
-                  sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-              >
+                variant="h6"
+                noWrap
+                component="div"
+                style={{ marginLeft: '.5rem' }} 
+                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
                 Submittr - {this.props.id}
               </Typography>
               <Search />
