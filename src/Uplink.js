@@ -37,7 +37,7 @@ async function call(url, method, headers, body) {
     };
 }
 
-function refreshToken(){
+async function refreshToken(){
     call(submittr_host + authenticatr_port + '/auth/refresh', 'GET', { 'Content-Type': 'application/json' }, "").then(response => {
       console.log(response)
     }).catch(error => {
@@ -45,17 +45,17 @@ function refreshToken(){
     })
 }
 
-function authenticate(){
+async function authenticate(){
     call(submittr_host + authenticatr_port + '/auth/verify', 'GET', { 'Content-Type': 'application/json'}, "")
     .then(response => {
       response = JSON.parse(JSON.stringify(response))
       console.log(response)
       if(response.valid === true){
-        return {id: response.id, isAdmin: response.isAdmin, isTeacher: response.isTeacher}
+        return {status: true, id: response.id, isAdmin: response.isAdmin, isTeacher: response.isTeacher}
       } 
     }).catch(error => {
         console.log(error)
-        return null
+        return {status: false}
     })
 }
 

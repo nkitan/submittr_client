@@ -11,6 +11,8 @@ function verifyUser(history){
           pathname: '/home',
           state: {id: response.id, isAdmin: response.isAdmin, isTeacher: response.isTeacher},
         })  
+      } else {
+        throw new Error('sarik')
       } 
     }).catch(error => {
       // Route to login with invalid credentials warning
