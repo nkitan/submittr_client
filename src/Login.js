@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Card from '@material-ui/core/Card'
 import { submittr_host, authenticatr_port } from './Config';
-import { call } from './Uplink';
+import { authenticate, call } from './Uplink';
 
 import { useState } from 'react';
 import './css/Login.css'
@@ -46,30 +46,21 @@ export default function Login() {
       return username.length > 0 && password.length > 0;
     }
 
-    function verifyUser(){
-      call(submittr_host + authenticatr_port + '/auth/verify', 'GET', { 'Content-Type': 'application/json'}, "")
-      .then(response => {
-        response = JSON.parse(JSON.stringify(response))
-        if(response.valid === true){
-          history.push({
-            pathname: '/home',
-            state: {id: response.id, isAdmin: response.isAdmin, isTeacher: response.isTeacher},
-          })  
-        } 
-      }).catch(error => {
-        // Route to login with invalid credentials warning
-        // TODO get failed login to work
-        history.push({
-          pathname: '/failedlogin',
-          state: {},
-        })
-      })
-    }
-
     function handleSubmit(event) {
       call(submittr_host + authenticatr_port + '/auth/login', 'POST', { 'Content-Type': 'application/json' }, { "username" : username , "password" : password})
       .then(response => { 
-        verifyUser()
+        authenticate().then(state => {
+          if(state.valid === true){
+            history.push({
+              pathname: '/home',
+              state: state
+            })
+          } 
+        }).catch(error => {
+          history.push({
+            pathname: '/login'
+          })
+        })
       }).catch(error => {
         console.log(error)
       })

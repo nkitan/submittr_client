@@ -15,9 +15,6 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/failedlogin">
-            <FailedLogin />
-          </Route>
           <Route path="/">
             <CheckCookie />
           </Route>
@@ -35,15 +32,6 @@ function NotFound () {
       <h1 style={{margin: 'auto', fontSize: 74, fontFamily: 'sans-serif'}}>Not found!</h1>
       <p>Sorry your page was not found!</p>
     </div>
-  );
-}
-
-function FailedLogin () {
-  return (
-  <div>
-      <h1 style={{margin: 'auto', fontSize: 74, fontFamily: 'sans-serif'}}>Invalid User!</h1>
-      <p>check credentials</p>
-  </div>
   );
 }
 

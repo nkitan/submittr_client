@@ -9,6 +9,22 @@ import UserType from './Components/UserType'
 import { refreshToken, authenticate } from './Uplink'
 
 function Home(){
+  async function handleRefresh(){
+    refreshToken().then(data => {
+      console.log('refreshed!')
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  async function handleAuth(){
+    authenticate().then(data => {
+      console.log('authenticated!')
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
   try{
     const location = useLocation()
     const id = location.state.id
@@ -29,10 +45,10 @@ function Home(){
           <div className="Header">
               <SearchAppBar id={id}/>
           </div>
-          <Button onClick={()=> refreshToken() } color="secondary" type="contained">
+          <Button onClick={()=> handleRefresh() } color="secondary" type="contained">
                   Refresh
               </Button>
-              <Button onClick={()=> authenticate() } color="secondary" type="contained">
+              <Button onClick={()=> handleAuth() } color="secondary" type="contained">
                   Authenticate
               </Button>
           <Assignments />
