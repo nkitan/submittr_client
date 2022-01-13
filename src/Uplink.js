@@ -31,14 +31,13 @@ async function call(url, method, headers, body) {
 
         return Promise.resolve(data);
     } catch(error) {
-            console.error('There was an error!', error);
             return Promise.reject(error);           
     };
 }
 
-async function refreshToken(){
+async function authenticatr(path){
     return new Promise((resolve, reject) => {
-        call(submittr_host + authenticatr_port + '/auth/refresh', 'GET', { 'Content-Type': 'application/json' }, "")
+        call(submittr_host + authenticatr_port + '/auth' + path, 'GET', { 'Content-Type': 'application/json'}, "")
         .then(response => {
             return resolve(response)     
         }).catch(error => {
@@ -47,15 +46,4 @@ async function refreshToken(){
     })
 }
 
-async function authenticate(){
-    return new Promise((resolve, reject) => {
-        call(submittr_host + authenticatr_port + '/auth/verify', 'GET', { 'Content-Type': 'application/json'}, "")
-        .then(response => {
-            return resolve(response)     
-        }).catch(error => {
-            return reject(error)
-        })
-    })
-}
-
-export {call, refreshToken, authenticate}
+export {call, authenticatr}

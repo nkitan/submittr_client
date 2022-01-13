@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Card from '@material-ui/core/Card'
 import { submittr_host, authenticatr_port } from './Config';
-import { authenticate, call } from './Uplink';
+import { authenticatr, call } from './Uplink';
 
 import { useState } from 'react';
 import './css/Login.css'
@@ -49,7 +49,7 @@ export default function Login() {
     function handleSubmit(event) {
       call(submittr_host + authenticatr_port + '/auth/login', 'POST', { 'Content-Type': 'application/json' }, { "username" : username , "password" : password})
       .then(response => { 
-        authenticate().then(state => {
+        authenticatr('/verify').then(state => {
           if(state.valid === true){
             history.push({
               pathname: '/home',

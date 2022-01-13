@@ -27,7 +27,7 @@ export default class SearchAppBar extends React.Component {
                 component="div"
                 style={{ marginLeft: '.5rem' }} 
                 sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
-                Submittr - {this.props.id}
+                Submittr - {this.props.username}
               </Typography>
               <Search />
           </ToolBar>

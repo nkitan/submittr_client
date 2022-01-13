@@ -6,6 +6,7 @@ export default class UserType extends React.Component {
         return (
             <div className='usertype'>
                 <p>{this.props.usertype}</p>
+                <p>{this.props.userid}</p>
             </div>
         )
     }

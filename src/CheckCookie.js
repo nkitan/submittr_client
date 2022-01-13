@@ -1,9 +1,9 @@
 import { useHistory } from "react-router-dom";
-import { authenticate } from './Uplink';
+import { authenticatr } from './Uplink';
 
 export default function CheckCookie(){
     const history = useHistory()
-    authenticate().then(state => {
+    authenticatr('/verify').then(state => {
       if(state.valid === true){
         history.push({
           pathname: '/home',

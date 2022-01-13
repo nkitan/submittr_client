@@ -56,6 +56,10 @@ const useStyles = makeStyles((theme) =>
     })
 );
 
+function handleSearch(event) {
+  console.log(event.target.value);
+};
+
 export default function Search(){
     const classes = useStyles();
     return (
@@ -70,8 +74,9 @@ export default function Search(){
             root: classes.inputRoot,
             input: classes.inputInput,
         }}
-        
+        id='searchbox'
         inputProps={{ 'aria-label': 'search ' }}
+        onChange={handleSearch}
         />
     </div>
     </div>
